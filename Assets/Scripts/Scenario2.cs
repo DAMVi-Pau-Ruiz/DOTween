@@ -1,9 +1,10 @@
 
 using System;
 using DG.Tweening;
+using Unity.Mathematics;
 using UnityEngine;
 
-public class Scenario2 : MonoBehaviour
+public class Scenario2 : MonoBehaviour, IUseTween
 {
     [Header("General")]
     [SerializeField] private Rigidbody cube1;
@@ -29,6 +30,32 @@ public class Scenario2 : MonoBehaviour
         cube2StartScale = cube2.transform.localScale;
 
         StartCase1();
+    }
+
+    public void PlayAnimation(int caseNumber)
+    {
+        switch (caseNumber)
+        {
+            case 1:
+                StartCase1();
+                break;
+
+            case 2:
+                StartCase1();
+                break;
+
+            case 3:
+                StartCase1();
+                break;
+
+            case 4:
+                StartCase1();
+                break;
+
+            case 5:
+                StartCase1();
+                break;
+        }
     }
 
     public void StartCase1()

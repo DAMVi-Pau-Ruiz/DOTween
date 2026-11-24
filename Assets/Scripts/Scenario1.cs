@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-public class Scenario1 : MonoBehaviour
+public class Scenario1 : MonoBehaviour, IUseTween
 {
     [SerializeField] private Rigidbody cube1RB;
     [SerializeField] private Transform target;
@@ -25,7 +25,12 @@ public class Scenario1 : MonoBehaviour
         startScale = cubeTransform.localScale;
         startRotation = cubeTransform.rotation;
 
-        StartJump();
+        RestartJump();
+    }
+
+    public void PlayAnimation(int caseNumber)
+    {
+        RestartJump();
     }
 
     private void StartJump()
@@ -45,7 +50,7 @@ public class Scenario1 : MonoBehaviour
         jumpSequence.Join(scaleSequence);
     }
 
-    public void RestartJump()
+    private void RestartJump()
     {
         jumpSequence?.Kill();
         jumpTween?.Kill();
