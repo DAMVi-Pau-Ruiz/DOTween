@@ -5,6 +5,7 @@ public class ButtonScenario1 : MonoBehaviour, IInteractable, IHighlightable
 {
     [SerializeField] private GameObject scenario;
     [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private int caseNumber = 0;
 
     [Header("Outline")]
     [SerializeField] private int outlineMaterialIndex = 1;
@@ -42,7 +43,7 @@ public class ButtonScenario1 : MonoBehaviour, IInteractable, IHighlightable
 
         if (tween != null)
         {
-            tween.PlayAnimation(0);
+            tween.PlayAnimation(caseNumber);
         }
     }
 

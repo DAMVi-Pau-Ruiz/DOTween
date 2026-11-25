@@ -11,8 +11,12 @@ public class Scenario2 : MonoBehaviour, IUseTween
     [SerializeField] private Rigidbody cube2;
 
     [Header("Case 1")]
-    [SerializeField] private Transform target;
     [SerializeField] private float case1Duration = 1;
+
+    [Header("Case 2")]
+    [SerializeField] private Transform case2Target1;
+    [SerializeField] private Transform case2Target2;
+    [SerializeField] private float case2Duration = 1;
 
     private Vector3 cube1Start;
     private Vector3 cube2Start;
@@ -20,6 +24,10 @@ public class Scenario2 : MonoBehaviour, IUseTween
     private Vector3 cube2StartScale;
 
     private Sequence case1Sequence;
+    private Sequence case2Sequence;
+    private Sequence case3Sequence;
+    private Sequence case4Sequence;
+    private Sequence case5Sequence;
 
     private void Start()
     {
@@ -41,26 +49,26 @@ public class Scenario2 : MonoBehaviour, IUseTween
                 break;
 
             case 2:
-                StartCase1();
+                StartCase2();
                 break;
 
             case 3:
-                StartCase1();
+                StartCase3();
                 break;
 
             case 4:
-                StartCase1();
+                StartCase4();
                 break;
 
             case 5:
-                StartCase1();
+                StartCase5();
                 break;
         }
     }
 
-    public void StartCase1()
+    private void StartCase1()
     {
-        case1Sequence?.Kill();
+        DOTween.KillAll();
 
         cube1.position = cube1Start;
         cube2.position = cube2Start;
@@ -73,7 +81,6 @@ public class Scenario2 : MonoBehaviour, IUseTween
 
         case1Sequence = DOTween.Sequence();
 
-        // PREPARACION: Cube1 se aplasta y ensancha
         case1Sequence.Append(
             cube1.transform.DOScale(
                 new Vector3(
@@ -84,7 +91,6 @@ public class Scenario2 : MonoBehaviour, IUseTween
             )
         );
 
-        // SALTO: Cube1 salta hacia Cube2
         case1Sequence.Append(
             cube1.DOJump(
                 cube2.position + new Vector3(0, 0.75f, 0),
@@ -92,7 +98,6 @@ public class Scenario2 : MonoBehaviour, IUseTween
             )
         );
 
-        // ESTIRAMIENTO: secuencia independiente de escala
         Sequence stretchSequence = DOTween.Sequence();
 
         stretchSequence.Append(
@@ -114,7 +119,6 @@ public class Scenario2 : MonoBehaviour, IUseTween
 
         case1Sequence.Join(stretchSequence);
 
-        // IMPACTO: Cube1 rebota y Cube2 retrocede
         float bounceDuration = case1Duration / 2;
 
         case1Sequence.Append(
@@ -138,9 +142,75 @@ public class Scenario2 : MonoBehaviour, IUseTween
             )
         );
 
-        // RECUPERACION: Cube2 vuelve a la normalidad
         case1Sequence.Append(
             cube2.transform.DOScale(cube2StartScale, 0.3f)
         );
+    }
+
+    private void StartCase2()
+    {
+        DOTween.KillAll();
+
+        cube1.position = cube1Start;
+        cube2.position = cube2Start;
+
+        cube1.linearVelocity = Vector3.zero;
+        cube2.linearVelocity = Vector3.zero;
+
+        cube1.transform.localScale = cube1StartScale;
+        cube2.transform.localScale = cube2StartScale;
+
+        case2Sequence = DOTween.Sequence();
+
+        case2Sequence.Append(cube1.DOMove(case2Target1.position, case2Duration));
+        case2Sequence.Join(cube2.DOJump(case2Target2.position, 2, 1, case2Duration));
+    }
+
+    private void StartCase3()
+    {
+        DOTween.KillAll();
+
+        cube1.position = cube1Start;
+        cube2.position = cube2Start;
+
+        cube1.linearVelocity = Vector3.zero;
+        cube2.linearVelocity = Vector3.zero;
+
+        cube1.transform.localScale = cube1StartScale;
+        cube2.transform.localScale = cube2StartScale;
+
+        case3Sequence = DOTween.Sequence();
+    }
+
+    private void StartCase4()
+    {
+        DOTween.KillAll();
+
+        cube1.position = cube1Start;
+        cube2.position = cube2Start;
+
+        cube1.linearVelocity = Vector3.zero;
+        cube2.linearVelocity = Vector3.zero;
+
+        cube1.transform.localScale = cube1StartScale;
+        cube2.transform.localScale = cube2StartScale;
+
+        case4Sequence = DOTween.Sequence();
+    }
+
+    private void StartCase5()
+    {
+        DOTween.KillAll();
+
+        cube1.position = cube1Start;
+        cube2.position = cube2Start;
+
+        cube1.linearVelocity = Vector3.zero;
+        cube2.linearVelocity = Vector3.zero;
+
+        cube1.transform.localScale = cube1StartScale;
+        cube2.transform.localScale = cube2StartScale;
+
+        case5Sequence = DOTween.Sequence();
     }
 }
