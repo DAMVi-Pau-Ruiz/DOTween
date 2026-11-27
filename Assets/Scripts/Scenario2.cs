@@ -11,6 +11,8 @@ public class Scenario2 : MonoBehaviour, IUseTween
     [SerializeField] private Rigidbody cube2;
 
     [Header("Case 1")]
+    [SerializeField] private Transform case1Target1;
+    [SerializeField] private Transform case1Target2;
     [SerializeField] private float case1Duration = 1;
 
     [Header("Case 2")]
@@ -89,6 +91,9 @@ public class Scenario2 : MonoBehaviour, IUseTween
         cube2.transform.localScale = cube2StartScale;
 
         case1Sequence = DOTween.Sequence();
+
+        case1Sequence.Append(cube1.DOMove(case1Target1.position, case1Duration));
+        case1Sequence.Join(cube2.DOMove(case1Target2.position, case1Duration));
 
         
     }
