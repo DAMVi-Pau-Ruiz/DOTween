@@ -66,9 +66,18 @@ public class Scenario2 : MonoBehaviour, IUseTween
         }
     }
 
+    private void KillSequences()
+    {
+        case1Sequence.Kill();
+        case2Sequence.Kill();
+        case3Sequence.Kill();
+        case4Sequence.Kill();
+        case5Sequence.Kill();
+    }
+
     private void StartCase1()
     {
-        DOTween.KillAll();
+        KillSequences();
 
         cube1.position = cube1Start;
         cube2.position = cube2Start;
@@ -81,75 +90,12 @@ public class Scenario2 : MonoBehaviour, IUseTween
 
         case1Sequence = DOTween.Sequence();
 
-        case1Sequence.Append(
-            cube1.transform.DOScale(
-                new Vector3(
-                    cube1StartScale.x * 1.5f,
-                    cube1StartScale.y * 0.65f,
-                    cube1StartScale.z * 1.5f
-                ), 0.2f
-            )
-        );
-
-        case1Sequence.Append(
-            cube1.DOJump(
-                cube2.position + new Vector3(0, 0.75f, 0),
-                3, 1, case1Duration
-            )
-        );
-
-        Sequence stretchSequence = DOTween.Sequence();
-
-        stretchSequence.Append(
-            cube1.transform.DOScale(
-                new Vector3(
-                    cube1StartScale.x * 0.85f,
-                    cube1StartScale.y * 1.4f,
-                    cube1StartScale.z * 0.85f
-                ), 0.2f
-            )
-        );
-
-        stretchSequence.Append(
-            cube1.transform.DOScale(
-                cube1StartScale,
-                case1Duration - 0.2f
-            )
-        );
-
-        case1Sequence.Join(stretchSequence);
-
-        float bounceDuration = case1Duration / 2;
-
-        case1Sequence.Append(
-            cube1.DOJump(cube1Start, 0.5f, 1, bounceDuration)
-        );
-
-        case1Sequence.Join(
-            cube2.DOMove(
-                cube2Start - cube2.transform.forward * 2,
-                bounceDuration
-            )
-        );
-
-        case1Sequence.Join(
-            cube2.transform.DOScale(
-                new Vector3(
-                    cube2StartScale.x * 1.5f,
-                    cube2StartScale.y * 0.65f,
-                    cube2StartScale.z * 1.5f
-                ), 0.2f
-            )
-        );
-
-        case1Sequence.Append(
-            cube2.transform.DOScale(cube2StartScale, 0.3f)
-        );
+        
     }
 
     private void StartCase2()
     {
-        DOTween.KillAll();
+        KillSequences();
 
         cube1.position = cube1Start;
         cube2.position = cube2Start;
@@ -168,7 +114,7 @@ public class Scenario2 : MonoBehaviour, IUseTween
 
     private void StartCase3()
     {
-        DOTween.KillAll();
+        KillSequences();
 
         cube1.position = cube1Start;
         cube2.position = cube2Start;
@@ -184,7 +130,7 @@ public class Scenario2 : MonoBehaviour, IUseTween
 
     private void StartCase4()
     {
-        DOTween.KillAll();
+        KillSequences();
 
         cube1.position = cube1Start;
         cube2.position = cube2Start;
@@ -200,7 +146,7 @@ public class Scenario2 : MonoBehaviour, IUseTween
 
     private void StartCase5()
     {
-        DOTween.KillAll();
+        KillSequences();
 
         cube1.position = cube1Start;
         cube2.position = cube2Start;
